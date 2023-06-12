@@ -1,0 +1,21 @@
+import numpy as np
+from PIL import Image
+
+# Load the saved model
+model = keras.models.load_model("cifar10_model.h5")
+
+# Load and preprocess the test image
+img = Image.open("two.png")
+img = img.resize((32, 32))
+img_array = np.array(img)
+img_array = img_array.astype("float32") / 255.0
+img_array = np.expand_dims(img_array, axis=0)
+
+# Make predictions on the test image
+predictions = model.predict(img_array)
+
+# Get the predicted class label
+class_label = np.argmax(predictions)
+
+# Print the predicted class label
+print("Predicted class label:", class_label)
